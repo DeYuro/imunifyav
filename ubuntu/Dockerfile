@@ -45,7 +45,18 @@ RUN \
     apt-get install -y psmisc && \
     apt-get install -y zip && \
     apt-get install -y lsof && \
-    apt-get install -y openssl
+    apt-get install -y openssl && \
+    apt-get install -y libc6
+
+
+RUN \
+    apt-get install -y e2fsprogs && \
+    apt-get install -y alt-php-hyperscan && \
+    apt-get install -y alt-php-internal-cli && \
+    apt-get install -y alt-php-internal-mbstring && \
+    apt-get install -y alt-php-internal-process && \
+    apt-get install -y alt-php-internal-leveldb && \
+    apt-get install -y alt-php-internal-mysqlnd
 
 # imunify stuff
 RUN \
@@ -71,4 +82,4 @@ RUN imunify-antivirus update # get sigs
 
 RUN cp /var/imunify360/files/sigs/v1/aibolit/ai-bolit-hoster-full.db /opt/ai-bolit/
 
-ENTRYPOINT ["sleep", "infinity"]
+ENTRYPOINT ["bash", "-c", "I360_SOCKET_ACTIVATION=0  /usr/bin/imunify-service"]
